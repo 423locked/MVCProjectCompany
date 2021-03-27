@@ -12,28 +12,34 @@ namespace MVCProjectCompany
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // adding MVC
+            services.AddControllersWithViews()
+                .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0)
+                .AddSessionStateTempDataProvider();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            // Order of the middleware is really important!
 
+            // While developing, it's necessary to see exceptions and errors.
+            if (env.IsDevelopment())  app.UseDeveloperExceptionPage();
+
+            // Connecting the routing
             app.UseRouting();
 
+            // Connecting static files (html, css, js)
+            app.UseStaticFiles();
+
+            // Register mapping (endpoints)
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
+                );
             });
         }
     }
