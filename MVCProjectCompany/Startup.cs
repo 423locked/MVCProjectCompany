@@ -36,16 +36,13 @@ namespace MVCProjectCompany
         {
             // Order of the middleware is really important!
 
-            // While developing, it's necessary to see exceptions and errors.
-            if (env.IsDevelopment())  app.UseDeveloperExceptionPage();
+            if (env.IsDevelopment())  
+                app.UseDeveloperExceptionPage();
 
-            // Connecting the routing
             app.UseRouting();
 
-            // Connecting static files (html, css, js)
             app.UseStaticFiles();
 
-            // Register mapping (endpoints)
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
