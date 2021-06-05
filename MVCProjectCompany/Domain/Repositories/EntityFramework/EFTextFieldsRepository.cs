@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MVCProjectCompany.Domain.Repositories.Abstract;
 using MVCProjectCompany.Service;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MVCProjectCompany.Domain.Repositories.EntityFramework
 {
-    public class EFTextFieldsRepository
+    public class EFTextFieldsRepository : ITextFieldsRepository
     {
         private readonly AppDbContext context;
         public EFTextFieldsRepository(AppDbContext context)
