@@ -85,12 +85,12 @@
 		padding: 0;
 	}
 
-	input, select, textarea {
+	/*input, select, textarea {
 		-moz-appearance: none;
 		-webkit-appearance: none;
 		-ms-appearance: none;
 		appearance: none;
-	}
+	}*/
 
 /* Basic */
 
@@ -122,12 +122,7 @@
 		font-weight: normal;
 	}
 
-	h1 {
-		text-transform: lowercase;
-	}
-
 	h2 {
-		text-transform: lowercase;
 		font-size: 1.6em;
 		letter-spacing: -1px;
 		margin-bottom: 1em;
@@ -474,11 +469,6 @@
 			#header {
 				height: 76px;
 
-				h1 {
-					font-size: 2em;
-					line-height: 76px;
-				}
-
 				nav {
 					line-height: 74px;
 					font-size: 1.1em;
@@ -796,3 +786,19 @@
 			}
 
 	}
+
+.div-box {
+	padding: 15px 0;
+	label {
+		display: block;
+	}
+	a {
+		display: block;
+	}
+}
+
+.img-block {
+	display: block;
+	max-width: 100%;
+	margin: 0 auto;
+}

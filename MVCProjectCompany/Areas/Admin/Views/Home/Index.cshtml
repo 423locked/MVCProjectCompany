@@ -1,0 +1,49 @@
+﻿@model IQueryable<ServiceItem>
+@{
+    ViewBag.Title = "Admin dashboard";
+}
+
+<div>
+    <h1>@ViewBag.Title</h1>
+    <div>
+        <h3>Our services</h3>
+        <div class="div-box">
+            <a asp-area="Admin" asp-controller="ServiceItems" asp-action="Edit" asp-route-id="">Add a new service</a>
+        </div>
+        @if (Model.Any())
+        {
+            <div>
+                @foreach (ServiceItem service in Model)
+                {
+                    <div>
+                        <a asp-area="Admin" asp-controller="ServiceItems" asp-action="Edit" asp-route-id="@service.Id">Edit</a>
+
+                        <form style="display: inline-block;" id="form-@service.Id" method="POST"
+                              asp-area="Admin" asp-controller="ServiceItems" asp-action="Delete">
+
+                            <input type="hidden" name="id" value="@service.Id" />
+                            <a href="#" onclick="document.getElementById('form-@service.Id').submit();">Delete</a>
+
+                        </form>
+
+                        <a asp-area="Admin" asp-controller="Services" asp-action="Index" asp-route-id="@service.Id">@service.Title</a>
+                    </div>
+                }
+            </div>
+        }
+
+        <div class="div-box">
+            <h3>Edit text fields of the website</h3>
+            <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="PageIndex">Main page</a>
+            <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="PageServices">Our services</a>
+            <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="PageContacts">Our contacts</a>
+        </div>
+
+        <div class="div-box">
+            <form asp-area="" asp-controller="Account" asp-action="Logout" method="POST">
+                <input type="submit" value="Logout" />
+            </form>
+        </div>
+    </div>
+</div>
+

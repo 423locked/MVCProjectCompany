@@ -53,12 +53,23 @@ namespace MVCProjectCompany
                 options.Cookie.Name = "companyAuth";
                 options.Cookie.HttpOnly = true;
                 options.LoginPath = "/account/login";
-                options.AccessDeniedPath = "account/accessdenied";
+                options.AccessDeniedPath = "/account/accessdenied";
                 options.SlidingExpiration = true;
             });
 
-            services.AddControllersWithViews()
-                .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0)
+
+            //setting up AdminArea authorization policy
+            services.AddAuthorization(x =>
+            {
+                x.AddPolicy("AdminArea", policy => { policy.RequireRole("admin"); });
+            });// admin role is from the identity server
+
+
+            services.AddControllersWithViews(x =>
+            {
+                x.Conventions.Add(new AdminAreaAuthorization("Admin", "AdminArea")); // in area admin use policy "AdminArea"
+            })
+            .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0)
                 .AddSessionStateTempDataProvider();
         }
 
@@ -81,6 +92,11 @@ namespace MVCProjectCompany
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapAreaControllerRoute(
+                        name: "admin",
+                        areaName: "Admin",
+                        pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
+                    );
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}"

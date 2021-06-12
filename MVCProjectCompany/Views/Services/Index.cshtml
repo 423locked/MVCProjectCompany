@@ -1,0 +1,15 @@
+﻿@model IQueryable<ServiceItem>
+@{
+    TextField Contacts = ViewBag.TextField;
+    ViewBag.Title = Contacts.Title;
+    ViewBag.Description = Contacts.MetaDescription;
+    ViewBag.Keywords = Contacts.MetaKeywords;
+}
+
+@if (Model.Any())
+{
+    @foreach (ServiceItem service in Model)
+    {
+        @await Html.PartialAsync("ServiceItemPartial", service);
+    }
+}

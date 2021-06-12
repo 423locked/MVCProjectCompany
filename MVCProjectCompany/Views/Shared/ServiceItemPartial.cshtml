@@ -1,0 +1,9 @@
+﻿@model ServiceItem
+
+<div class="div-box">
+    <a asp-area="" asp-controller="Services" asp-action="Index" asp-route-id="@Model.Id">
+        <img src="~/images/@Model.TitleImagePath" alt="" class="img-block"/>
+    </a> 
+    <h2>@Model.Title</h2>
+    <p><h3>@Model.Subtitle</h3></p>
+</div>
